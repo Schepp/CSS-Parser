@@ -14,7 +14,7 @@
 		<ol>
 			<li>Gib in das Textfeld (einigermaßen sauberes) CSS ein</li>
 			<li>Button anklicken, Output checken</li>
-			<li>Falls der Output Schrott (<a href="#bugs">bekannte Bugs beachten!</a>) ist, <a href="http://twitter.com/sir_pepe">@sir_pepe</a> Bescheid geben</li>
+			<li>Falls der Output Schrott ist, <a href="http://github.com/SirPepe/CSS-Parser/issues">Bescheid geben</a></li>
 		</ol>
 		<small>Fortgeschrittene dürfen sich auch gerne an einigermaßen unsauberem CSS versuchen</small>
 		<table cellpadding="16">
