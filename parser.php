@@ -1,35 +1,65 @@
 <?php
 
 
-	/*
-	 * CSSPARSER
-	 * Copyright (C) 2009 Peter Kröner
-	 * 
-	 * This program is free software: you can redistribute it and/or modify
-	 * it under the terms of the GNU General Public License as published by
-	 * the Free Software Foundation, either version 3 of the License, or
-	 * (at your option) any later version.
-	 * 
-	 * This program is distributed in the hope that it will be useful,
-	 * but WITHOUT ANY WARRANTY; without even the implied warranty of
-	 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	 * GNU General Public License for more details.
-	 * 
-	 * You should have received a copy of the GNU General Public License
-	 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+/**
+ * CSSPARSER
+ * Copyright (C) 2009 Peter Kröner
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+
+
+/**
+ * CSS PARSER
+ * General purpose CSS parser
+ */
+class CssParser {
+
+
+	public $css;
+	public $parsed;
+
+
+	/**
+	 * LOAD_STRING
+	 * Loads a css string
 	 */
+	public function load_string($string){
+		$this->css = $string;
+	}
 
 
-	/*
+	/**
+	 * LOAD_FILE
+	 * Loads a file
+	 */
+	public function load_file($file){
+		// TODO
+	}
+
+
+	/**
 	 * PARSE
-	 * General purpose CSS parser. Parses some CSS into an array
+	 * Parses some CSS into an array
 	 */
-
-	function parse($css){
+	public function parse(){
+		$css = $this->css;
 		// Remove Comments
 		$css = preg_replace('/\/\*(.*)?\*\//Usi', '', $css);
 		// Extract @media-blocks into $blocks
-		preg_match_all('/@.+?\}[^\}]*?\}/ms',$css,$blocks);
+		preg_match_all('/@.+?\}[^\}]*?\}/ms',$css, $blocks);
 		// Append the rest to $blocks
 		array_push($blocks[0],preg_replace('/@.+?\}[^\}]*?\}/ms','',$css));
 		$ordered = array();
@@ -71,7 +101,6 @@
 				
 				if(!empty($selector)){
 					if(!isset($new[$selector])) $new[$selector] = array();
-
 					$rules = explode(';', str_replace(array('####o####','####c####'),array('{','}'),$val[++$i]));
 					foreach($rules as $rule){
 						$rule = trim($rule," \r\n\t");
@@ -88,38 +117,44 @@
 			}
 			$ordered[$key] = $new;
 		}
-		return $ordered;
+		$this->parsed = $ordered;
 	}
 
-	/*
+
+	/**
 	 * GLUE
 	 * Turn an array back into CSS
 	 */
-	function glue($array){
-		$css = '';
-		foreach($array as $media => $content){
-			if(substr($media,0,6) === '@media'){
-				$css .= $media . " {\n";
-				$prefix = "\t";
-			}
-			else $prefix = "";
-			
-			foreach($content as $selector => $rules){
-				$css .= $prefix.$selector . " {\n";
-				foreach($rules as $property => $value){
-					$css .= $prefix."\t".$property.': '.$value;
-					$css .= ";\n";
+	public function glue(){
+		if($this->parsed){
+			$output = '';
+			foreach($this->parsed as $media => $content){
+				if(substr($media,0,6) === '@media'){
+					$output .= $media . " {\n";
+					$prefix = "\t";
 				}
-				$css .= $prefix."}\n\n";
+				else $prefix = "";
+				
+				foreach($content as $selector => $rules){
+					$output .= $prefix.$selector . " {\n";
+					foreach($rules as $property => $value){
+						$output .= $prefix."\t".$property.': '.$value;
+						$output .= ";\n";
+					}
+					$output .= $prefix."}\n\n";
+				}
+				if(substr($media,0,6) === '@media'){
+					$output .= "}\n\n";
+				}
 			}
-			if(substr($media,0,6) === '@media'){
-				$css .= "}\n\n";
-			}
+			// Back-insert all unlogical parenthesis
+			$output = str_replace(array('####o####','####c####'),array('{','}'),$output);
+			return $output;
 		}
-		// Back-insert all unlogical parenthesis
-		$css = str_replace(array('####o####','####c####'),array('{','}'),$css);
-		return $css;
 	}
+
+
+}
 
 
 ?>

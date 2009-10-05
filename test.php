@@ -9,7 +9,14 @@
 	</style>
 	<body>
 
-		<?php include('parser.php'); ?>
+		<?php
+			include('parser.php');
+			$parser = new CssParser();
+			if(!empty($_POST['css'])){
+				$parser->load_string(stripslashes($_POST['css']));
+				$parser->parse();
+			}
+		?>
 		<h1>Mach dich nützlich!</h1>
 		<ol>
 			<li>Gib in das Textfeld (einigermaßen sauberes) CSS ein</li>
@@ -21,21 +28,21 @@
 			<tr>
 				<td valign="top">
 					<h2>Zerlegt</h2>
-					<pre><?php if(!empty($_POST['css'])){ print_r(parse(stripslashes($_POST['css']))); } ?></pre>
+					<pre><?php print_r($parser->parsed); ?></pre>
 				</td>
 				<td valign="top">
 					<h2>Zusammengesetzt</h2>
-					<pre><?php if(!empty($_POST['css'])){ echo glue(parse(stripslashes($_POST['css']))); } ?></pre>
+					<pre><?php echo $parser->glue(); ?></pre>
 				</td>
 				<td valign="top">
 					<h2>Original</h2>
-					<pre><?php if(!empty($_POST['css'])){ echo $_POST['css']; } ?></pre>
+					<pre><?php echo $parser->css; ?></pre>
 				</td>
 			</tr>
 		</table>
 		<form method="post" action="test.php">
-			<textarea rows="10" cols="80" name="css"><?php if(!empty($_POST['css'])){
-echo stripslashes($_POST['css']);
+			<textarea rows="10" cols="80" name="css"><?php if(!empty($parser->css)){
+echo $parser->css;
 } else {
 echo 'body { color:#000; background:#FFF; }
 #content strong, #content em { font-style:italic; }
@@ -47,12 +54,6 @@ echo 'body { color:#000; background:#FFF; }
 <input type="submit" value="Klickst du hier">
 		</form>
 
-
-<h1 id="bugs">Todo-Liste / bekannte Bugs:</h1>
-<ul>
-	<li><code>{</code> und <code>}</code> innerhalb von Strings machen alles kaputt. Bisher keine Ahnung wie sich das fixen lässt...</li>
-	<li><code>!important</code> wird beim zusammenführen/überschreiben von Eigenschaften nicht beachtet</li>
-</ul>
 
 	</body>
 </html>
