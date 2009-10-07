@@ -90,11 +90,11 @@ class CssParser {
 			$new = array();
 			for($i = 0; $i<count($val); $i++){
 				// Split selectors and rules and split properties and values
-				$selector = str_replace(array('####o####','####c####'),array('{','}'),trim($val[$i]," \r\n\t"));
+				$selector = trim($val[$i]," \r\n\t");
 				
 				if(!empty($selector)){
 					if(!isset($new[$selector])) $new[$selector] = array();
-					$rules = explode(';', str_replace(array('####o####','####c####'),array('{','}'),$val[++$i]));
+					$rules = explode(';',$val[++$i]);
 					foreach($rules as $rule){
 						$rule = trim($rule," \r\n\t");
 						if(!empty($rule)){
