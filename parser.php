@@ -81,15 +81,8 @@ class CssParser {
 				$ordered_key = 'main';
 				$ordered_value = $blocks[0][$i];
 			}
-			// Find any unlogical parenthesis and replace then with something that makes no trouble
-			$ordered_value = preg_replace('/(\'[^\']*)\{([^\']*\')/sm','$1####o####$2',$ordered_value);
-			$ordered_value = preg_replace('/(\'[^\']*)\}([^\']*\')/sm','$1####c####$2',$ordered_value);
-			$ordered_value = preg_replace('/("[^"]*)\{([^"]*")/sm','$1####o####$2',$ordered_value);
-			$ordered_value = preg_replace('/("[^"]*)\}([^"]*")/sm','$1####c####$2',$ordered_value);
-			$ordered_value = preg_replace('/(\{[^\}]*)\{/sm','$1####o####',$ordered_value);
-			$ordered_value = preg_replace('/\}([^\{]*\})/sm','####c####$1',$ordered_value);
-			
-			$ordered[$ordered_key] = preg_split('/[\{\}]/',trim($ordered_value," \r\n\t"),-1,PREG_SPLIT_NO_EMPTY);
+			// Split by parenthesis, ignoring those inside content-quotes
+			$ordered[$ordered_key] = preg_split('/([^\'"\{\}]*[\'"][^\'"]*[\'"][^\'"\{\}]*)[\{\}]|([^\'"\{\}]*)[\{\}]/',trim($ordered_value," \r\n\t"),-1,PREG_SPLIT_NO_EMPTY|PREG_SPLIT_DELIM_CAPTURE);
 		}
 		
 		// Beginning to rebuild new slim CSS-Array
