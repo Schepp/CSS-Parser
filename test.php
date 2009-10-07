@@ -49,7 +49,12 @@ echo 'body { color:#000; background:#FFF; }
 
 @media print {
 	em { color:red; }
-}'; } ?></textarea>
+}
+
+strong { content:"}"}
+
+a{content:\'}\'}
+'; } ?></textarea>
 <br>
 <input type="submit" value="Klickst du hier">
 		</form>
