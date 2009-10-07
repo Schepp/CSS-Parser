@@ -1,0 +1,5 @@
+body {
+	color:green;
+}
+
+div#foo { content:"bar{foo}"; }

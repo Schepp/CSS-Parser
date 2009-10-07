@@ -36,8 +36,12 @@ class CssParser {
 	 * LOAD_STRING
 	 * Loads a css string
 	 */
-	public function load_string($string){
-		$this->css = $string;
+	public function load_string($string, $overwrite = false){
+		if($overwrite){
+			$this->css = $string;
+		} else {
+			$this->css .= $string;
+		}
 	}
 
 
@@ -45,8 +49,20 @@ class CssParser {
 	 * LOAD_FILE
 	 * Loads a file
 	 */
-	public function load_file($file){
-		// TODO
+	public function load_file($file, $overwrite = false){
+		$this->load_string(file_get_contents($file), $overwrite);
+	}
+
+
+	/**
+	 * LOAD_FILES
+	 * Loads a number of files
+	 */
+	public function load_files($files){
+		$files = explode(';', $files);
+		foreach($files as $file){
+			$this->load_file($file, false);
+		}
 	}
 
 
