@@ -140,8 +140,6 @@ class CssParser {
 					$output .= "}\n\n";
 				}
 			}
-			// Back-insert all unlogical parenthesis
-			$output = str_replace(array('####o####','####c####'),array('{','}'),$output);
 			return $output;
 		}
 	}
