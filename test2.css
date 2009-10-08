@@ -1,0 +1,5 @@
+body div {
+	color:red;
+}
+
+div#foo { background:url(img/blubb.png) top left repeat-y; }
