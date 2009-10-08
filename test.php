@@ -53,7 +53,7 @@ body { color:#000; background:#FFF; }
 }
 
 /* CSS comment */
-<!-- HTML comment -->
+<!-- .pansensalat {visibility: hidden;} -->
 
 p { content:"{"} 
 
@@ -63,7 +63,7 @@ strong { content:\'\"\'}
 
 a{content:\'}\'}
 
-<!-- HTML comment -->
+<!-- .wurstfinger {color:pink;} -->
 
 span {color:green!important;}
 span {color:blue;}
