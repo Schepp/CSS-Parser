@@ -75,7 +75,7 @@ class CssParser {
 		// Remove CSS-Comments
 		$css = preg_replace('/\/\*.*?\*\//ms', '', $css);
 		// Remove HTML-Comments
-		$css = preg_replace('/\<!--(.*?)--\>/ms', '$1', $css);
+		$css = preg_replace('/\<!--([^\'"\<\>]*[\'"].*[\'"][^\'"\<\>]*)--\>|\<!--(.*?)--\>/ms', '$1', $css);
 		// Extract @media-blocks into $blocks
 		preg_match_all('/@.+?\}[^\}]*?\}/ms',$css, $blocks);
 		// Append the rest to $blocks
@@ -100,7 +100,7 @@ class CssParser {
 				$ordered_value = $blocks[0][$i];
 			}
 			// Split by parenthesis, ignoring those inside content-quotes
-			$ordered[$ordered_key] = preg_split('/([^\'"\{\}]*[\'"].*(?<!\\\)[\'"][^\'"\{\}]*)[\{\}]|([^\'"\{\}]*)[\{\}]/',trim($ordered_value," \r\n\t"),-1,PREG_SPLIT_NO_EMPTY|PREG_SPLIT_DELIM_CAPTURE);
+			$ordered[$ordered_key] = preg_split('/([^\'"\{\}]*?[\'"].*?(?<!\\\)[\'"][^\'"\{\}]*?)[\{\}]|([^\'"\{\}]*?)[\{\}]/',trim($ordered_value," \r\n\t"),-1,PREG_SPLIT_NO_EMPTY|PREG_SPLIT_DELIM_CAPTURE);
 		}
 		
 		// Beginning to rebuild new slim CSS-Array

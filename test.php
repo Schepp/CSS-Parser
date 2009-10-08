@@ -36,12 +36,12 @@
 				</td>
 				<td valign="top">
 					<h2>Original</h2>
-					<pre><?php echo $parser->css; ?></pre>
+					<pre><?php echo htmlentities($parser->css); ?></pre>
 				</td>
 			</tr>
 		</table>
 		<form method="post" action="test.php">
-			<textarea rows="24" cols="80" name="css"><?php if(!empty($parser->css)){
+			<textarea rows="26" cols="80" name="css"><?php if(!empty($parser->css)){
 echo $parser->css;
 } else {
 echo '/* CSS comment */
@@ -58,7 +58,7 @@ body { color:#000; background:#FFF; }
 p { content:"{"} 
 
 strong { content:\'\"\'}
-<!-- HTML comment -->
+<!-- .toschoistdoof {content:\'-->\'} -->
 strong { content:\'\"\'}
 
 a{content:\'}\'}
@@ -67,6 +67,9 @@ a{content:\'}\'}
 
 span {color:green!important;}
 span {color:blue;}
+
+span[attr=""]{content:\'\'}
+
 '; } ?></textarea>
 <br>
 <input type="submit" value="Klickst du hier">
