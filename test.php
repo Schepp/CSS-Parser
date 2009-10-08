@@ -59,6 +59,8 @@ p { content:"{"}
 
 strong { content:\'\"\'}
 <!-- .toschoistdoof {content:\'-->\'} -->
+
+<!-- .scheppistdoof {content:\'-\\\'->\'} -->
 strong { content:\'\"\'}
 
 a{content:\'}\'}
@@ -69,6 +71,10 @@ span {color:green!important;}
 span {color:blue;}
 
 span[attr=""]{content:\'\'}
+
+<!--*[attr="-->"]{content:\'\'}
+
+<!--*[attr="-->"]{content:\'\'}
 
 '; } ?></textarea>
 <br>
