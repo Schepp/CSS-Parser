@@ -41,19 +41,29 @@
 			</tr>
 		</table>
 		<form method="post" action="test.php">
-			<textarea rows="10" cols="80" name="css"><?php if(!empty($parser->css)){
+			<textarea rows="20" cols="80" name="css"><?php if(!empty($parser->css)){
 echo $parser->css;
 } else {
-echo 'body { color:#000; background:#FFF; }
+echo '/* CSS comment */
+body { color:#000; background:#FFF; }
 #content strong, #content em { font-style:italic; }
 
 @media print {
 	em { color:red; }
 }
 
-strong { content:"}"}
+/* CSS comment */
+<!-- HTML comment -->
+
+strong { content:"{"} 
+
+strong { content:\'\"\'}
+<!-- HTML comment -->
+strong { content:\'\"\'}
 
 a{content:\'}\'}
+
+<!-- HTML comment -->
 '; } ?></textarea>
 <br>
 <input type="submit" value="Klickst du hier">

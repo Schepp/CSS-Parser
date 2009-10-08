@@ -72,8 +72,10 @@ class CssParser {
 	 */
 	public function parse(){
 		$css = $this->css;
-		// Remove Comments
-		$css = preg_replace('/\/\*(.*)?\*\//Usi', '', $css);
+		// Remove CSS-Comments
+		$css = preg_replace('/\/\*.*?\*\//ms', '', $css);
+		// Remove HTML-Comments
+		$css = preg_replace('/\<!--.*?--\>/ms', '', $css);
 		// Extract @media-blocks into $blocks
 		preg_match_all('/@.+?\}[^\}]*?\}/ms',$css, $blocks);
 		// Append the rest to $blocks
