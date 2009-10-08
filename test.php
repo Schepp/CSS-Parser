@@ -41,7 +41,7 @@
 			</tr>
 		</table>
 		<form method="post" action="test.php">
-			<textarea rows="20" cols="80" name="css"><?php if(!empty($parser->css)){
+			<textarea rows="24" cols="80" name="css"><?php if(!empty($parser->css)){
 echo $parser->css;
 } else {
 echo '/* CSS comment */
@@ -55,7 +55,7 @@ body { color:#000; background:#FFF; }
 /* CSS comment */
 <!-- HTML comment -->
 
-strong { content:"{"} 
+p { content:"{"} 
 
 strong { content:\'\"\'}
 <!-- HTML comment -->
@@ -64,6 +64,9 @@ strong { content:\'\"\'}
 a{content:\'}\'}
 
 <!-- HTML comment -->
+
+span {color:green!important;}
+span {color:blue;}
 '; } ?></textarea>
 <br>
 <input type="submit" value="Klickst du hier">
